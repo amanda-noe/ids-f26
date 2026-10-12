@@ -102,14 +102,16 @@ reproducable.
 ```{python}
 #| echo: true
 import os
-from dotenv import load_dotenv
 
-# loads .env file and variables inside of it
-load_dotenv()
-
-api_key = os.getenv("CENSUS_API_KEY")
+# Reads the API key from the environment
+api_key = os.environ("CENSUS_API_KEY")
 ```
 
+- In your terminal, you then need to run the command `export` 
+`CENSUS_API_KEY="your_actual_census_api_key"` for macOS/Linux, 
+`$env:CENSUS_API_KEY = "your_actual_census_api_key"` for Windows PowerShell, 
+or `set CENSUS_API_KEY=your_actual_census_api_key` for Windows Command for this
+code to work.
 - In your code, your API URL will look like 
 `url = f"http://api.census.gov/data/2023/acs/acs5?`
 `get=NAME,B01003_001E&for=state:*&key={api_key}"`
