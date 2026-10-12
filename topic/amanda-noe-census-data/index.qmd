@@ -104,7 +104,7 @@ reproducable.
 import os
 
 # Reads the API key from the environment
-api_key = os.environ("CENSUS_API_KEY")
+api_key = os.environ["CENSUS_API_KEY"]
 ```
 
 - In your terminal, you then need to run the command `export` 
