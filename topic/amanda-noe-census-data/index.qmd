@@ -90,30 +90,35 @@ get=NAME,B01003_001E&for=state:*&key=127522bb146effe5374s61fd4279c26a4571503)
 - While an API key is not as sensitive as something like a password, you want 
 to avoid other people using your key for their requests as  your key can be 
 revoked if its misused
-- One method is to use a `.env` file to store your key as an environmental 
-variable. (make sure `.env` is ignored by git).
-- In your `.env` file, save your key as a variable and then load it into your 
-python environment (code on next slide).
-- When collaborating, collaborators need to create their own `.env` file with 
-their own key. As long as they do this and follow the syntax, the process is 
-reproducable.
+- Request your own Census API key and add it to a `.env` file in the
+  repository's top-level folder as `CENSUS_API_KEY=your_key`.
+- Git ignores `.env`, so it will not be committed. Each collaborator should
+  create a local `.env` file with their own key after cloning the repository.
+- Put one `NAME=value` setting on each line. A file could look like this:
+
+```text
+CENSUS_API_KEY=your_census_api_key
+ANOTHER_SERVICE_API_KEY=your_other_api_key
+```
+
+- Replace the example values with your own keys. Do not paste real keys into
+  the presentation or commit the `.env` file.
 
 ## How to keep API key hidden (cont.)
 ```{python}
 #| echo: true
 import os
+from dotenv import load_dotenv
 
-# Reads the API key from the environment
-api_key = os.environ("CENSUS_API_KEY")
+# Find the repository-level .env file without replacing existing variables.
+load_dotenv()
+api_key = os.getenv("CENSUS_API_KEY")
+if not api_key:
+    raise ValueError("Add CENSUS_API_KEY to your local .env file.")
 ```
 
-- In your terminal, you then need to run the command `export` 
-`CENSUS_API_KEY="your_actual_census_api_key"` for macOS/Linux, 
-`$env:CENSUS_API_KEY = "your_actual_census_api_key"` for Windows PowerShell, 
-or `set CENSUS_API_KEY=your_actual_census_api_key` for Windows Command for this
-code to work.
 - In your code, your API URL will look like 
-`url = f"http://api.census.gov/data/2023/acs/acs5?`
+`url = f"https://api.census.gov/data/2023/acs/acs5?`
 `get=NAME,B01003_001E&for=state:*&key={api_key}"`
 
 ## Example 1: Population By State Data Frame
@@ -125,7 +130,7 @@ import requests
 import pandas as pd
 
 # API URL 
-url = f"http://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&for=state:*&key={api_key}"
+url = f"https://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&for=state:*&key={api_key}"
 
 response = requests.get(url)
 data = response.json()
@@ -456,4 +461,4 @@ United States Census Bureau. (2026). *What We Do*. US Census Bureau.
 
 United States Census Bureau. (2025). *TIGER/Line Shapefiles*. US Census Bureau.
     https://www.census.gov/geographies/mapping-files/time-series/geo/
-    tiger-line-file.html 
+    tiger-line-file.html
