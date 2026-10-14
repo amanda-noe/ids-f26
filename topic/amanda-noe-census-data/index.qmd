@@ -4,6 +4,7 @@ author: Amanda Noe
 format:
   revealjs:
     theme: default
+    smaller: true
     slide-number: true
 ---
 
@@ -80,10 +81,12 @@ Using the API ultimately makes your code:
 2. Choose which variables you need and find the alphanumeric code for 
 them
 3. Request an API key
-4. Build your API URL (example URL: http://api.census.gov/data/2023/acs/acs5?
-get=NAME,B01003_001E&for=state:*&key=127522bb146effe5374s61fd4279c26a4571503)
+4. Build your API URL (example URL: 
+http://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&
+for=state:*&key=127522bb146effe5374s61fd4279c26a4571503)
 (example key, not usable)
-5. Request the data: use requests package (`response = requests.get(url)`)
+5. Request the data: use requests package 
+(`response = requests.get(url)`)
 6. Create a data frame to use the data
 
 ## How to keep API key hidden
