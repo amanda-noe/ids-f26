@@ -121,7 +121,7 @@ if not api_key:
 ```
 
 - In your code, your API URL will look like 
-`url = f"http://api.census.gov/data/2023/acs/acs5?`
+`url = f"https://api.census.gov/data/2023/acs/acs5?`
 `get=NAME,B01003_001E&for=state:*&key={api_key}"`
 
 ## Example 1: Population By State Data Frame
