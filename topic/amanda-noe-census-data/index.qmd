@@ -1,6 +1,7 @@
 ---
 title: "Accessing US Census Data"
 author: Amanda Noe
+bibliography: references.bib
 format:
   revealjs:
     theme: default
@@ -96,10 +97,14 @@ revoked if its misused
 - One method is to use a `.env` file to store your key as an environmental 
 variable. (make sure `.env` is ignored by git).
 - In your `.env` file, save your key as a variable and then load it into your 
-python environment (code on next slide).
+python environment.
+- Example of what your `.env` file could look like (fake key):
+```text
+CENSUS_API_KEY=127522bb146effe5374s61fd4279c26a4571503 
+```
 - When collaborating, collaborators need to create their own `.env` file with 
-their own key. As long as they do this and follow the syntax, the process is 
-reproducable.
+their own key, making sure the file is not committed. As long as they do this 
+and follow the syntax, the process is reproducable.
 
 ## How to keep API key hidden (cont.)
 
@@ -115,11 +120,6 @@ if not api_key:
     raise ValueError("Add CENSUS_API_KEY to your local .env file.")
 ```
 
-- In your terminal, you then need to run the command `export` 
-`CENSUS_API_KEY="your_actual_census_api_key"` for macOS/Linux, 
-`$env:CENSUS_API_KEY = "your_actual_census_api_key"` for Windows PowerShell, 
-or `set CENSUS_API_KEY=your_actual_census_api_key` for Windows Command for this
-code to work.
 - In your code, your API URL will look like 
 `url = f"http://api.census.gov/data/2023/acs/acs5?`
 `get=NAME,B01003_001E&for=state:*&key={api_key}"`
@@ -132,7 +132,7 @@ import requests
 import pandas as pd
 
 # API URL 
-url = f"http://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&for=state:*&key={api_key}"
+url = f"https://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&for=state:*&key={api_key}"
 
 response = requests.get(url)
 data = response.json()
@@ -251,12 +251,13 @@ brooklyn_income.head(10)
 ## Bar Graph
 ```{python}
 #| echo: false
+#| fig-format: svg
 #| output: true
 brooklyn_income.plot(
     x="zip_code",
     y="median_income",
     kind="barh",
-    figsize=(10, 8),
+    figsize=(10, 4),
     legend=False
 )
 
@@ -321,12 +322,13 @@ df = df[~df["State"].isin(["Puerto Rico", "District of Columbia"])]
 ## Scatter Plot
 ```{python}
 #| echo: false
+#| fig-format: svg
 #| output: true
 # Making scatter plot comparing education and income
 plt.scatter(df["Bachelors_Percent"], df["Median_Income"])
 
 # labeling 
-plt.xlabel("Percent with Bachelor's Degree or Higher")
+plt.xlabel("Percent of 25+ Population with Bachelor's Degree")
 plt.ylabel("Median Household Income ($)")
 plt.title("Education and Median Household Income by State")
 
@@ -358,7 +360,7 @@ import geopandas as gpd
 import requests
 import pandas as pd
 
-url = f"https://api.census.gov/data/2024/acs/acs5/subject?get=NAME,S2801_C01_012E&for=state:*&key={api_key}"
+url = f"https://api.census.gov/data/2024/acs/acs5/subject?get=NAME,S2801_C02_012E&for=state:*&key={api_key}"
 
 response = requests.get(url)
 data = response.json()
@@ -371,7 +373,7 @@ data = response.json()
 df = pd.DataFrame(data[1:], columns=data[0])
 
 # Convert internet access percentage to numeric
-df["Internet Access"] = df["S2801_C01_012E"].astype(int)
+df["Internet Access"] = df["S2801_C02_012E"].astype(float)
 ```
 
 ## Spacial Data
@@ -403,6 +405,7 @@ map_data = map_data[
 ## Choropleth Map
 ```{python}
 #| echo: false
+#| fig-format: svg
 #| output: true
 # Make the choropleth map
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -437,31 +440,7 @@ programmers. Accessing data using the API allows programmers to:
 The Census API makes large amounts of public data accessible, reproducible, 
 and useful for data-driven research.
 
-## Resources
+## Resources 
 
-API United States Census Bureau. (2026). *Census API: Datasets in /data and 
-    its descendants*. US Census Bureau. https://api.census.gov/data.html
-
-Patton, Sam. (2025). *Census API Basics: Simple Steps to Better Data Access*.
-    US Census Bureau. https://www2.census.gov/2025/2025-01-14-simple-steps-to-
-    better-data-access-presentation.pdf.
-
-PyPi. (2026). *Requests 2.34.2*. PyPi. 
-    https://pypi.org/project/requests/#description
-
-United States Census Bureau. (2026). *Census Data API User Guide*. US Census 
-    Bureau. https://www.census.gov/data/developers/guidance/api-user-guide.Overview.html#form-dropdown-559651575.
-
-United States Census Bureau. (2026). *Available APIs*. US Census Bureau.   
-    https://www.census.gov/data/developers/data-sets.html.
-
-United States Census Bureau. (2025). *Using the API to Access Census Data*. 
-    US Census Bureau. https://www.census.gov/library/video/2025/adrm/using-the-
-    api-to-access-census-data.html. 
-
-United States Census Bureau. (2026). *What We Do*. US Census Bureau.        
-    https://www.census.gov/about/what.html 
-
-United States Census Bureau. (2025). *TIGER/Line Shapefiles*. US Census Bureau.
-    https://www.census.gov/geographies/mapping-files/time-series/geo/
-    tiger-line-file.html 
+::: {#refs}
+:::
