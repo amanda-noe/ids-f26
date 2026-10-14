@@ -1,9 +1,11 @@
 ---
 title: "Accessing US Census Data"
 author: Amanda Noe
+bibliography: references.bib
 format:
   revealjs:
     theme: default
+    smaller: true
     slide-number: true
 ---
 
@@ -17,7 +19,7 @@ and thus I anticipate this will be applicable.
 
 ## Introduction to Census Data
 
-US Census Data provides vital and extensive insights by providing widely used demographic and economic data about the United States
+US Census Data provides vital and extensive insights by providing widely used demographic and economic data about the United States. [@census-what-we-do]
 
 # Why US Census Data Matters
 
@@ -40,13 +42,13 @@ public health, education, transportation and more.
 
 ## Main Datasets provided by the U.S. Census Bureau
 
-There are many data sets provided by the U.S. Census Bureau but the main ones are as follows:
+There are many data sets provided by the U.S. Census Bureau but the main ones are as follows [@census-api-datasets]:
 
 - **Decennial Census:** Counts every resident every 10 years to determine 
 political representation
 - **American Community Survery:** Gathers annual and monthly social, economic, 
 and housing data for local communities
-- **TIGER/Line Geodatabases:** databases with information about spacial deliniation on the national and state level
+- **TIGER/Line Geodatabases:** databases with information about spacial deliniation on the national and state level [@census-tiger-shapefiles]
 
 # Accessing Census Data
 
@@ -58,7 +60,7 @@ main methods:
 - *data.census.gov:* you can download many tables manually online, TIGER files 
 are also here
 - *Census API:* preferred method because it allows for direct programmic 
-access, makes this ideal for programmers and researchers.
+access, makes this ideal for programmers and researchers. [@census-api-guide]
 - *QuickFacts:* streamlined tool that provides frequently requested statistics 
 for states, counties, cities, and towns.
 - *Python and R Packages:* data is occasionally available in this way.
@@ -66,7 +68,7 @@ for states, counties, cities, and towns.
 ## Why Use the API
 
 As previously stated, the API is more streamlined and allows for importing 
-data using the command line, which is ideal for programmers.
+data using the command line, which is ideal for programmers. [@patton-api-basics]
 
 Using the API ultimately makes your code:
 
@@ -76,35 +78,36 @@ Using the API ultimately makes your code:
 
 ## How to Use the API
 
-1. Choose the U.S. census data set (i.e. the ACS)
+1. Choose the U.S. census data set (i.e. the ACS) [@census-available-apis]
 2. Choose which variables you need and find the alphanumeric code for 
 them
 3. Request an API key
-4. Build your API URL (example URL: http://api.census.gov/data/2023/acs/acs5?
-get=NAME,B01003_001E&for=state:*&key=127522bb146effe5374s61fd4279c26a4571503)
-(example key, not usable)
-5. Request the data: use requests package (`response = requests.get(url)`)
+4. Build your API URL (example URL: 
+http://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&
+for=state:*&key=127522bb146effe5374s61fd4279c26a4571503)
+(example key, not usable) [@census-api-video]
+5. Request the data: use requests package 
+(`response = requests.get(url)`) [@requests-pypi]
 6. Create a data frame to use the data
 
 ## How to keep API key hidden
 - While an API key is not as sensitive as something like a password, you want 
 to avoid other people using your key for their requests as  your key can be 
 revoked if its misused
-- Request your own Census API key and add it to a `.env` file in the
-  repository's top-level folder as `CENSUS_API_KEY=your_key`.
-- Git ignores `.env`, so it will not be committed. Each collaborator should
-  create a local `.env` file with their own key after cloning the repository.
-- Put one `NAME=value` setting on each line. A file could look like this:
-
+- One method is to use a `.env` file to store your key as an environmental 
+variable. (make sure `.env` is ignored by git).
+- In your `.env` file, save your key as a variable and then load it into your 
+python environment.
+- Example of what your `.env` file could look like (fake key):
 ```text
-CENSUS_API_KEY=your_census_api_key
-ANOTHER_SERVICE_API_KEY=your_other_api_key
+CENSUS_API_KEY=127522bb146effe5374s61fd4279c26a4571503 
 ```
-
-- Replace the example values with your own keys. Do not paste real keys into
-  the presentation or commit the `.env` file.
+- When collaborating, collaborators need to create their own `.env` file with 
+their own key, making sure the file is not committed. As long as they do this 
+and follow the syntax, the process is reproducable.
 
 ## How to keep API key hidden (cont.)
+
 ```{python}
 #| echo: true
 import os
@@ -118,11 +121,10 @@ if not api_key:
 ```
 
 - In your code, your API URL will look like 
-`url = f"https://api.census.gov/data/2023/acs/acs5?`
+`url = f"http://api.census.gov/data/2023/acs/acs5?`
 `get=NAME,B01003_001E&for=state:*&key={api_key}"`
 
 ## Example 1: Population By State Data Frame
-
 ```{python}
 #| echo: true
 # Importing necessary packages
@@ -137,6 +139,7 @@ data = response.json()
 ```
 
 ## Converting the data into a data frame
+
 ```{python}
 #| echo: true
 # making data frame
@@ -248,12 +251,13 @@ brooklyn_income.head(10)
 ## Bar Graph
 ```{python}
 #| echo: false
+#| fig-format: svg
 #| output: true
 brooklyn_income.plot(
     x="zip_code",
     y="median_income",
     kind="barh",
-    figsize=(10, 8),
+    figsize=(10, 4),
     legend=False
 )
 
@@ -318,12 +322,13 @@ df = df[~df["State"].isin(["Puerto Rico", "District of Columbia"])]
 ## Scatter Plot
 ```{python}
 #| echo: false
+#| fig-format: svg
 #| output: true
 # Making scatter plot comparing education and income
 plt.scatter(df["Bachelors_Percent"], df["Median_Income"])
 
 # labeling 
-plt.xlabel("Percent with Bachelor's Degree or Higher")
+plt.xlabel("Percent of 25+ Population with Bachelor's Degree")
 plt.ylabel("Median Household Income ($)")
 plt.title("Education and Median Household Income by State")
 
@@ -355,7 +360,7 @@ import geopandas as gpd
 import requests
 import pandas as pd
 
-url = f"https://api.census.gov/data/2024/acs/acs5/subject?get=NAME,S2801_C01_012E&for=state:*&key={api_key}"
+url = f"https://api.census.gov/data/2024/acs/acs5/subject?get=NAME,S2801_C02_012E&for=state:*&key={api_key}"
 
 response = requests.get(url)
 data = response.json()
@@ -368,7 +373,7 @@ data = response.json()
 df = pd.DataFrame(data[1:], columns=data[0])
 
 # Convert internet access percentage to numeric
-df["Internet Access"] = df["S2801_C01_012E"].astype(int)
+df["Internet Access"] = df["S2801_C02_012E"].astype(float)
 ```
 
 ## Spacial Data
@@ -400,6 +405,7 @@ map_data = map_data[
 ## Choropleth Map
 ```{python}
 #| echo: false
+#| fig-format: svg
 #| output: true
 # Make the choropleth map
 fig, ax = plt.subplots(figsize=(12, 8))
@@ -434,31 +440,4 @@ programmers. Accessing data using the API allows programmers to:
 The Census API makes large amounts of public data accessible, reproducible, 
 and useful for data-driven research.
 
-## Resources
-
-API United States Census Bureau. (2026). *Census API: Datasets in /data and 
-    its descendants*. US Census Bureau. https://api.census.gov/data.html
-
-Patton, Sam. (2025). *Census API Basics: Simple Steps to Better Data Access*.
-    US Census Bureau. https://www2.census.gov/2025/2025-01-14-simple-steps-to-
-    better-data-access-presentation.pdf.
-
-PyPi. (2026). *Requests 2.34.2*. PyPi. 
-    https://pypi.org/project/requests/#description
-
-United States Census Bureau. (2026). *Census Data API User Guide*. US Census 
-    Bureau. https://www.census.gov/data/developers/guidance/api-user-guide.Overview.html#form-dropdown-559651575.
-
-United States Census Bureau. (2026). *Available APIs*. US Census Bureau.   
-    https://www.census.gov/data/developers/data-sets.html.
-
-United States Census Bureau. (2025). *Using the API to Access Census Data*. 
-    US Census Bureau. https://www.census.gov/library/video/2025/adrm/using-the-
-    api-to-access-census-data.html. 
-
-United States Census Bureau. (2026). *What We Do*. US Census Bureau.        
-    https://www.census.gov/about/what.html 
-
-United States Census Bureau. (2025). *TIGER/Line Shapefiles*. US Census Bureau.
-    https://www.census.gov/geographies/mapping-files/time-series/geo/
-    tiger-line-file.html
+## References
