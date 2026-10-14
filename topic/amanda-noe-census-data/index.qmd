@@ -264,13 +264,10 @@ brooklyn_income.plot(
 plt.xlabel("Median Household Income ($)")
 plt.ylabel("Brooklyn ZIP Code")
 plt.title("Median Household Income by Brooklyn ZIP Code")
+plt.xticks(fontsize=8, rotation=45, ha="right")
 plt.tight_layout()
 plt.show()
 ```
-
-Interpretation: Highest income zip codes include neighborhoods such as Park 
-Slope and Brooklyn Heights
-Lowest income ones include Spring Creek and East Flatbush.
 
 ## Example 2: Scatter Plot for Comparing Education and Income by State
 
@@ -440,4 +437,10 @@ programmers. Accessing data using the API allows programmers to:
 The Census API makes large amounts of public data accessible, reproducible, 
 and useful for data-driven research.
 
-## References
+## References {.smaller}
+<style>
+.reveal #refs {
+  font-size: 0.65em;
+  line-height: 1.1;
+}
+</style>
