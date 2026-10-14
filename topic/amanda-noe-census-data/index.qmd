@@ -19,7 +19,7 @@ and thus I anticipate this will be applicable.
 
 ## Introduction to Census Data
 
-US Census Data provides vital and extensive insights by providing widely used demographic and economic data about the United States
+US Census Data provides vital and extensive insights by providing widely used demographic and economic data about the United States. [@census-what-we-do]
 
 # Why US Census Data Matters
 
@@ -42,13 +42,13 @@ public health, education, transportation and more.
 
 ## Main Datasets provided by the U.S. Census Bureau
 
-There are many data sets provided by the U.S. Census Bureau but the main ones are as follows:
+There are many data sets provided by the U.S. Census Bureau but the main ones are as follows [@census-api-datasets]:
 
 - **Decennial Census:** Counts every resident every 10 years to determine 
 political representation
 - **American Community Survery:** Gathers annual and monthly social, economic, 
 and housing data for local communities
-- **TIGER/Line Geodatabases:** databases with information about spacial deliniation on the national and state level
+- **TIGER/Line Geodatabases:** databases with information about spacial deliniation on the national and state level [@census-tiger-shapefiles]
 
 # Accessing Census Data
 
@@ -60,7 +60,7 @@ main methods:
 - *data.census.gov:* you can download many tables manually online, TIGER files 
 are also here
 - *Census API:* preferred method because it allows for direct programmic 
-access, makes this ideal for programmers and researchers.
+access, makes this ideal for programmers and researchers. [@census-api-guide]
 - *QuickFacts:* streamlined tool that provides frequently requested statistics 
 for states, counties, cities, and towns.
 - *Python and R Packages:* data is occasionally available in this way.
@@ -68,7 +68,7 @@ for states, counties, cities, and towns.
 ## Why Use the API
 
 As previously stated, the API is more streamlined and allows for importing 
-data using the command line, which is ideal for programmers.
+data using the command line, which is ideal for programmers. [@patton-api-basics]
 
 Using the API ultimately makes your code:
 
@@ -78,16 +78,16 @@ Using the API ultimately makes your code:
 
 ## How to Use the API
 
-1. Choose the U.S. census data set (i.e. the ACS)
+1. Choose the U.S. census data set (i.e. the ACS) [@census-available-apis]
 2. Choose which variables you need and find the alphanumeric code for 
 them
 3. Request an API key
 4. Build your API URL (example URL: 
 http://api.census.gov/data/2023/acs/acs5?get=NAME,B01003_001E&
 for=state:*&key=127522bb146effe5374s61fd4279c26a4571503)
-(example key, not usable)
+(example key, not usable) [@census-api-video]
 5. Request the data: use requests package 
-(`response = requests.get(url)`)
+(`response = requests.get(url)`) [@requests-pypi]
 6. Create a data frame to use the data
 
 ## How to keep API key hidden
@@ -440,7 +440,4 @@ programmers. Accessing data using the API allows programmers to:
 The Census API makes large amounts of public data accessible, reproducible, 
 and useful for data-driven research.
 
-## Resources 
-
-::: {#refs}
-:::
+## References
