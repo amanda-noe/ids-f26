@@ -257,14 +257,13 @@ brooklyn_income.plot(
     x="zip_code",
     y="median_income",
     kind="barh",
-    figsize=(10, 4),
+    figsize=(10,6),
     legend=False
 )
 
 plt.xlabel("Median Household Income ($)")
 plt.ylabel("Brooklyn ZIP Code")
 plt.title("Median Household Income by Brooklyn ZIP Code")
-plt.xticks(fontsize=8, rotation=45, ha="right")
 plt.tight_layout()
 plt.show()
 ```
@@ -440,7 +439,7 @@ and useful for data-driven research.
 ## References {.smaller}
 <style>
 .reveal #refs {
-  font-size: 0.65em;
+  font-size: 0.75em;
   line-height: 1.1;
 }
 </style>
