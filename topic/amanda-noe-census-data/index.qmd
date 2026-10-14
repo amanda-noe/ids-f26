@@ -99,12 +99,17 @@ their own key. As long as they do this and follow the syntax, the process is
 reproducable.
 
 ## How to keep API key hidden (cont.)
+
 ```{python}
 #| echo: true
 import os
+from dotenv import load_dotenv
 
-# Reads the API key from the environment
-api_key = os.environ["CENSUS_API_KEY"]
+# Find the repository-level .env file without replacing existing variables.
+load_dotenv()
+api_key = os.getenv("CENSUS_API_KEY")
+if not api_key:
+    raise ValueError("Add CENSUS_API_KEY to your local .env file.")
 ```
 
 - In your terminal, you then need to run the command `export` 
@@ -117,7 +122,6 @@ code to work.
 `get=NAME,B01003_001E&for=state:*&key={api_key}"`
 
 ## Example 1: Population By State Data Frame
-
 ```{python}
 #| echo: true
 # Importing necessary packages
@@ -132,6 +136,7 @@ data = response.json()
 ```
 
 ## Converting the data into a data frame
+
 ```{python}
 #| echo: true
 # making data frame
