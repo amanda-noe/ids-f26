@@ -146,6 +146,9 @@ last name and use a nested Markdown list, as in the instructor's example:
   - Share experience completing real-world data-science projects.
   - Help students develop reproducible and collaborative working habits.
 - Anikeev, Katerina
+  - Learn how to better use my computer and navigate work through the command line
+  - Practice skills useful for research and Data Analysis in Political Science
+  - Practice my existing skills and learn how to better code in Python.
 - Bucco, Sadie
   - Become proficient using GitHub and git commands
   - Work on writing code that is clear and reproducible
@@ -202,6 +205,11 @@ last name and use a nested Markdown list, as in the instructor's example:
 
 - Nair, Pardhip
 - Noe, Amanda
+  - I want to become more proficient in keeping an organized workflow on 
+  GitHub.
+  - I want to become more confident in my python coding skills.
+  - I want to bolster my understanding of technical data science and computer 
+  terms.
 - Ong, Enrico
   - Build fluency with the command line for everyday data-science tasks.
   - Practice core Git operations: cloning, pushing, and pulling changes.
@@ -230,8 +238,9 @@ or include private information.
 
 ### Midterm
 
-The midterm format, dates, and deliverables will be added after they are
-finalized.
+The [midterm project](midterm-project.qmd) uses NYC 311 honking requests to
+study whether congestion pricing changed honking request counts in the
+Congestion Relief Zone. Submit completed work through Classroom 50.
 
 ### Final Project
 
@@ -412,26 +421,27 @@ accepted.
 | Date | Presenter | Topic |
 |---|---|---|
 | 09/28 | Liu, Ethan | [topic] |
-| 09/30 | Noe, Amanda | [topic] |
-| 10/05 | Anikeev, Katerina | [topic] |
-| 10/07 | Chervonny, Erik | [topic] |
-| 10/12 | Mansur, Mahiba | [topic] |
-| 10/14 | Ong, Enrico | [topic] |
-| 10/19 | — | Midterm-project work; no topic presentations |
-| 10/21 | — | Midterm-project work; no topic presentations |
+| 09/30 | Noe, Amanda | Accessing U.S. Census Data |
+| 10/05 | Anikeev, Katerina | Visualizing Spatial Data |
+| 10/07 | Chervonny, Erik | Grammar of Graphics (ggplot) |
+| 10/12 | Mansur, Mahiba | Decision Trees |
+| 10/14 | Ong, Enrico | Data Manipulation with Pandas |
+| 10/19 | — | Midterm-project week; no topic presentations |
+| 10/21 | — | Midterm-project week; no topic presentations |
 | 10/26 | Fontana, Adam | K-Means Clustering |
-| 10/28 | Wang, Chaoyang | [topic] |
-| 11/02 | Bucco, Sadie | [topic] |
-| 11/04 | Tria, Nicholas | [topic] |
-| 11/04 | Parkins, Jack | [topic] |
+| 10/28 | Wang, Chaoyang | Neural Network |
+| 10/28 | Bucco, Sadie | Random Forests |
+| 11/02 | -- | No class in exchange of midterm-project time |
+| 11/04 | Tria, Nicholas | Naive Bayes |
+| 11/04 | Parkins, Jack | LLM Agents |
 | 11/09 | Chok, Isaac | [topic] |
-| 11/09 | Horan, Elizabeth | [topic] |
+| 11/09 | Horan, Elizabeth | Support vector machines |
 | 11/11 | Distefano, Cristian | [topic] |
 | 11/11 | Nair, Pardhip | [topic] |
 | 11/11 | Morissette, Carter | [topic] |
 | 11/16 | Maras, Ruveyda | [topic] |
 | 11/16 | Wang, Leo | [topic] |
-| 11/16 | Choudhury, Ruhama | [topic] |
+| 11/16 | Choudhury, Ruhama | Deep Learning |
 | 11/18 | Hartman, Mikaela | [topic] |
 | 11/18 | Kiani, Ismail | [topic] |
 | 11/18 | Kelly, Daniel | [topic] |
@@ -542,8 +552,27 @@ Fall 2026 assignment requirements are:
 4. Preserve the complete branch history. Record the branch name, commit
    hashes and messages, and concise command results in the assignment source
    or wherever the assignment specifies.
-5. Push the branch and render the assignment before submitting the PDF through
-   the designated course workflow.
+5. Before submission, activate the same Python virtual environment that
+   successfully renders the IDS-F26 class notes. Do not create a separate
+   homework environment or install packages into a different interpreter.
+   From the assignment repository, verify the active interpreter and render
+   the source file:
+
+   ```bash
+   python -c "import sys; print(sys.executable); print(sys.version)"
+   quarto render your-homework.qmd
+   ```
+
+   Record the interpreter path, Python version, render command, and successful
+   result in the assignment source or required evidence. If the work needs a
+   package unavailable in the class-notes environment, ask the instructor
+   before adding a dependency. The grader will render the submitted source
+   with an automated script in that shared environment, so matching the
+   environment is part of the reproducibility check.
+6. Push the branch and submit the `.qmd` source plus any required input files
+   through the designated course workflow. A PDF is no longer required for
+   submission; the grader will render the source. Do not submit generated
+   output unless an assignment explicitly requests it.
 
 The ten-commit requirement applies to each assignment repository, not to the
 semester notes repository as a whole. Graded assignments remain private in
